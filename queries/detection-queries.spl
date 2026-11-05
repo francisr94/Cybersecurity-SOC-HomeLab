@@ -1,0 +1,20 @@
+# Saved Splunk (SPL) queries used in the attack & detection case study
+# Replace the examples below with the exact queries you ran in your lab.
+
+# --- Example: Failed logon / brute-force detection ---
+# Flags source IPs with more than 5 failed logons (Event ID 4625) in a 10-minute window
+index=* EventCode=4625
+| bucket _time span=10m
+| stats count by _time, Source_Network_Address, Account_Name
+| where count > 5
+
+# --- Example: Sysmon process execution lookup ---
+# Pulls process creation events (Sysmon Event ID 1) with command line and parent process
+index=* EventCode=1
+| table _time, ComputerName, Image, CommandLine, ParentImage, ParentCommandLine
+| sort -_time
+
+# --- Example: Correlating a specific attacker IP across event types ---
+index=* "192.168.X.X"
+| table _time, EventCode, ComputerName, Account_Name, CommandLine
+| sort -_time

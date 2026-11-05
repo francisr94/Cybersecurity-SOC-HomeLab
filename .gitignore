@@ -1,0 +1,15 @@
+# VM files - never commit these, they're huge and may contain credentials/keys
+*.vdi
+*.vbox
+*.vbox-prev
+*.ova
+*.ovf
+*.vmdk
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+*.swp
