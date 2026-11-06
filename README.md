@@ -105,7 +105,7 @@ See [Splunk Detection Queries](queries/splunk-detection-queries.md).
 The following activities are future development goals, not yet completed:
 
 - Suricata network intrusion detection
-- MITRE ATT&CK technique mapping
+- Validate ATT&CK mappings through Atomic Red Team simulations
 - Advanced threat hunting
 - Atomic Red Team attack simulations
 - Kali Linux security testing
