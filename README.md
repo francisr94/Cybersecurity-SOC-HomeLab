@@ -75,12 +75,17 @@ Documented SPL searches include:
 
 See [Splunk Detection Queries](queries/splunk-detection-queries.md).
 
+
 ## Project Documentation
 
 - [SIEM Implementation](docs/siem-implementation.md)
 - [SOC Lab Network Topology](diagrams/soc-lab-network.md)
 - [Splunk Detection Queries](queries/splunk-detection-queries.md)
-- [Screenshots and Evidence](screenshots/)
+- [MITRE ATT&CK Mapping](docs/mitre-attack-mapping.md)
+- [SOC Analyst Technical Skills](docs/soc-analyst-skills.md)
+- [SOC Incident Investigation Report](docs/incident-investigation-report.md)
+- [Screenshots and Lab Evidence](screenshots/)
+
 
 ## Skills Demonstrated
 
