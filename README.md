@@ -1,4 +1,3 @@
-
 # Cybersecurity SOC Home Lab
 
 ## Project Overview
@@ -7,19 +6,18 @@ This project documents the design, deployment, and configuration of a virtualize
 
 The purpose of this lab is to develop practical cybersecurity skills in network security, Windows system administration, centralized log collection, security monitoring, and threat detection.
 
+**Outcome:** Windows Security and Sysmon logs from two domain-joined systems are collected in Splunk, where I investigate authentication activity and process creation using SPL.
+
 ## Key Findings
 
-| Investigation | What I looked for | Result |
+| Investigation | Telemetry | Documented in |
 |---|---|---|
-| Failed authentication | Repeated failed logins (Event ID 4625) | [e.g., X failed logins for account Y from source Z in N minutes] |
-| Successful authentication | Logon activity after failures (Event ID 4624) | [e.g., successful logon from the same source after the failures] |
-| Process creation | Parent-child process relationships (Sysmon Event ID 1) | [e.g., cmd.exe spawned by explorer.exe on CLIENT01] |
+| Failed authentication | Windows Event ID 4625 | [Splunk Detection Queries](queries/splunk-detection-queries.md) |
+| Successful authentication | Windows Event ID 4624 | [Splunk Detection Queries](queries/splunk-detection-queries.md) |
+| Process creation | Sysmon Event ID 1 | [Splunk Detection Queries](queries/splunk-detection-queries.md) |
+| End-to-end investigation | Windows Security and Sysmon logs | [SOC Incident Investigation Report](docs/incident-investigation-report.md) |
 
-### Example: Failed Login Investigation
-
-![Failed login search in Splunk](screenshots/YOUR-FILE-NAME.png)
-
-*Splunk search showing failed logon attempts grouped by host, account, and source address.*
+Results from controlled Atomic Red Team simulations will be added here as they are completed.
 
 ## Lab Architecture
 
@@ -68,7 +66,7 @@ The environment runs in Oracle VirtualBox using an isolated internal network cal
 ### 4. Endpoint Monitoring
 - Installed Microsoft Sysmon on DC01 and CLIENT01.
 - Applied a Sysmon configuration.
-- Configured Windows event forwarding.
+- Configured the Splunk Universal Forwarder to send Windows Security and Sysmon logs to Splunk.
 - Verified Sysmon process creation events (Event ID 1).
 
 ### 5. Security Event Investigation
@@ -89,7 +87,6 @@ Documented SPL searches include:
 
 See [Splunk Detection Queries](queries/splunk-detection-queries.md).
 
-
 ## Project Documentation
 
 - [SIEM Implementation](docs/siem-implementation.md)
@@ -99,7 +96,6 @@ See [Splunk Detection Queries](queries/splunk-detection-queries.md).
 - [SOC Analyst Technical Skills](docs/soc-analyst-skills.md)
 - [SOC Incident Investigation Report](docs/incident-investigation-report.md)
 - [Screenshots and Lab Evidence](screenshots/)
-
 
 ## Skills Demonstrated
 
@@ -118,10 +114,9 @@ See [Splunk Detection Queries](queries/splunk-detection-queries.md).
 
 The following activities are future development goals, not yet completed:
 
+- Atomic Red Team simulations to validate ATT&CK mappings
 - Suricata network intrusion detection
-- Validate ATT&CK mappings through Atomic Red Team simulations
 - Advanced threat hunting
-- Atomic Red Team attack simulations
 - Kali Linux security testing
 - Security alert tuning and incident response exercises
 
