@@ -7,6 +7,20 @@ This project documents the design, deployment, and configuration of a virtualize
 
 The purpose of this lab is to develop practical cybersecurity skills in network security, Windows system administration, centralized log collection, security monitoring, and threat detection.
 
+## Key Findings
+
+| Investigation | What I looked for | Result |
+|---|---|---|
+| Failed authentication | Repeated failed logins (Event ID 4625) | [e.g., X failed logins for account Y from source Z in N minutes] |
+| Successful authentication | Logon activity after failures (Event ID 4624) | [e.g., successful logon from the same source after the failures] |
+| Process creation | Parent-child process relationships (Sysmon Event ID 1) | [e.g., cmd.exe spawned by explorer.exe on CLIENT01] |
+
+### Example: Failed Login Investigation
+
+![Failed login search in Splunk](screenshots/YOUR-FILE-NAME.png)
+
+*Splunk search showing failed logon attempts grouped by host, account, and source address.*
+
 ## Lab Architecture
 
 The environment runs in Oracle VirtualBox using an isolated internal network called `CorpLAN`.
