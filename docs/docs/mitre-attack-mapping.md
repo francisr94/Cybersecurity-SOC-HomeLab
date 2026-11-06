@@ -1,4 +1,3 @@
-
 # MITRE ATT&CK Mapping and Detection Opportunities
 
 ## Overview
@@ -11,13 +10,12 @@ The mapping identifies techniques that can be investigated using the Windows Sec
 
 ## Detection Mapping
 
-| MITRE ATT&CK Technique | Technique ID | Relevant Telemetry | Investigation Goal |
-|---|---|---|---|
-| Brute Force | T1110 | Windows Event ID 4625 | Investigate repeated failed authentication attempts |
-| Valid Accounts | T1078 | Windows Event ID 4624 | Review successful logons and account activity |
-| System Services: Service Execution | T1569.002 | Sysmon Event ID 1 and Windows System logs | Investigate suspicious service execution |
-| Command and Scripting Interpreter: Windows Command Shell | T1059.003 | Sysmon Event ID 1 | Investigate suspicious command-shell execution |
-| Process Injection | T1055 | Sysmon process and related telemetry | Identify suspicious process behavior |
+| MITRE ATT&CK Technique | Technique ID | Relevant Telemetry | Investigation Goal | Status |
+|---|---|---|---|---|
+| Brute Force | T1110 | Windows Event ID 4625 | Investigate repeated failed authentication attempts | Search written |
+| Valid Accounts | T1078 | Windows Event ID 4624 | Review successful logons and account activity | Search written |
+| Command and Scripting Interpreter: Windows Command Shell | T1059.003 | Sysmon Event ID 1 | Investigate suspicious command-shell execution | Telemetry collected; dedicated search not yet written |
+| System Services: Service Execution | T1569.002 | Windows System Event ID 7045, Sysmon Event ID 1 | Investigate suspicious service installation and execution | Planned |
 
 ## Splunk Investigation Searches
 
@@ -78,16 +76,17 @@ Process creation is useful for investigating multiple ATT&CK techniques, but Eve
 - Windows authentication monitoring: Implemented and validated.
 - Sysmon process creation monitoring: Implemented and validated.
 - Centralized log collection: Implemented and validated.
-- ATT&CK detection mapping: Documented.
+- ATT&CK detection mapping: Initial mapping documented.
 - Adversary simulation: Planned.
 - Advanced behavioral detection: Planned.
 
 ## Future Improvements
 
+- Perform controlled Atomic Red Team simulations to validate each mapping.
 - Develop detection rules for suspicious PowerShell activity.
 - Investigate service creation and persistence.
-- Perform controlled Atomic Red Team simulations.
-- Map validated detection results to ATT&CK techniques.
+- Evaluate process injection detection (T1055), which requires Sysmon Event IDs 8 and 10 in the Sysmon configuration.
+- Update the Status column as each technique is validated.
 - Document false positives and investigation findings.
 
 ## Reference
