@@ -1,70 +1,113 @@
+
 # Cybersecurity SOC Home Lab
 
-![Network Diagram](diagrams/network-topology.png)
+## Project Overview
 
-A self-contained, segmented enterprise environment built in VirtualBox to simulate the core
-functions of a Security Operations Center: perimeter defense, Active Directory identity
-management, centralized log collection, and end-to-end attack detection and remediation.
+This project documents the design, deployment, and configuration of a virtualized Security Operations Center (SOC) home lab.
 
-## Overview
-
-This lab was built to practice the full SOC analyst workflow — not just standing up tools,
-but using them the way a real security team would: generate an event, find it in the SIEM,
-and close the gap with a concrete defensive control.
-
-**Stack:** pfSense · Windows Server 2022 (Active Directory) · Windows 10/11 · Splunk Enterprise ·
-Sysmon · Kali Linux · Atomic Red Team
+The purpose of this lab is to develop practical cybersecurity skills in network security, Windows system administration, centralized log collection, security monitoring, and threat detection.
 
 ## Lab Architecture
 
-| Component | Role | Network Segment |
-|---|---|---|
-| pfSense | Perimeter firewall / router | WAN ↔ CorpLAN |
-| Windows Server 2022 | Active Directory Domain Controller | CorpLAN |
-| Windows 10/11 | Domain-joined client endpoint | CorpLAN |
-| Ubuntu + Splunk Enterprise | Centralized SIEM / log collection | CorpLAN (management) |
-| Kali Linux | Adversary simulation | External/attacker segment |
+The environment runs in Oracle VirtualBox using an isolated internal network called `CorpLAN`.
 
-See [`diagrams/network-topology.png`](diagrams/network-topology.png) for the full topology.
+| System | Operating System | IP Address | Purpose |
+|---|---|---|---|
+| pfSense | pfSense CE | 192.168.10.1 | Firewall and gateway |
+| DC01 | Windows Server 2022 | 192.168.10.10 | Active Directory and DNS |
+| CLIENT01 | Windows Client | 192.168.10.100 | Domain-joined endpoint |
+| SIEM01 | Ubuntu Server | 192.168.10.20 | Splunk SIEM |
 
-## What's in this repo
+## Technologies Used
 
-- **`diagrams/`** — network topology diagram (draw.io source + exported PNG)
-- **`screenshots/`** — build evidence for each phase of the lab
-  - `01-pfsense/` — firewall and network segmentation setup
-  - `02-active-directory/` — domain controller, GPOs, domain-joined client
-  - `03-splunk-setup/` — SIEM install, forwarders, Sysmon ingestion
-  - `04-attack-detection/` — the case study below, step by step
-- **`queries/`** — saved Splunk/SPL search queries used in the case study
-- **`docs/`** — detailed write-up of the attack & detection case study
+- Oracle VirtualBox
+- pfSense CE
+- Windows Server 2022
+- Active Directory Domain Services
+- Windows DNS
+- Ubuntu Server
+- Splunk Enterprise
+- Splunk Universal Forwarder
+- Microsoft Sysmon
+- Splunk Search Processing Language (SPL)
 
-## Attack & Detection Case Study
+## Implemented Components
 
-**Summary:** [one sentence describing the attack you ran, e.g. "Simulated a brute-force
-authentication attack from an external attacker segment against a domain-joined Windows
-client, detected via Splunk, and remediated with a pfSense firewall rule."]
+### 1. Network Security
+- Configured pfSense as the lab network gateway.
+- Established an isolated VirtualBox internal network.
+- Verified network connectivity between lab systems.
 
-Full write-up: [`docs/attack-case-study.md`](docs/attack-case-study.md)
+### 2. Active Directory
+- Installed and configured Active Directory Domain Services.
+- Created the `corp.local` domain.
+- Configured DNS.
+- Joined CLIENT01 to the domain.
+- Verified domain authentication.
 
-| Step | Description |
-|---|---|
-| 1. Adversarial Vector | Attack executed from Kali Linux against the CorpLAN environment |
-| 2. SIEM Ingestion & Query | Event isolated in Splunk using Sysmon/Windows Event Log telemetry |
-| 3. Remediation | Defensive control implemented (GPO / pfSense rule) and verified |
+### 3. SIEM Deployment
+- Installed Splunk Enterprise on Ubuntu Server.
+- Configured Splunk Web on TCP port 8000.
+- Enabled receiving on TCP port 9997.
+- Installed Splunk Universal Forwarder on both Windows endpoints.
 
-## Key Skills Demonstrated
+### 4. Endpoint Monitoring
+- Installed Microsoft Sysmon on DC01 and CLIENT01.
+- Applied a Sysmon configuration.
+- Configured Windows event forwarding.
+- Verified Sysmon process creation events (Event ID 1).
 
-- Network segmentation and perimeter firewall configuration
-- Active Directory deployment and Group Policy hardening
-- SIEM pipeline design: log forwarding, parsing, and search
-- Threat detection mapped to [MITRE ATT&CK](https://attack.mitre.org/)
-- Incident documentation and remediation verification
+### 5. Security Event Investigation
+- Generated and investigated failed authentication events (Event ID 4625).
+- Reviewed successful authentication events (Event ID 4624).
+- Investigated Sysmon process creation activity.
+- Used SPL searches to summarize security events.
 
-## Future Improvements
+## Detection Engineering
 
-- [ ] Add a second detection scenario (e.g. lateral movement or persistence)
-- [ ] Build Splunk dashboards for the mapped ATT&CK techniques
-- [ ] Add Suricata/Zeek for network-based detection alongside host telemetry
+Documented SPL searches include:
 
----
-**Author:** Francisco Reyes | [LinkedIn](https://www.linkedin.com/in/yourprofile) | MS Cybersecurity, Thomas Edison State University
+- Failed login monitoring.
+- Successful login activity.
+- Sysmon process creation.
+- Windows security event overview.
+- Threshold-based failed login detection.
+
+See [Splunk Detection Queries](queries/splunk-detection-queries.md).
+
+## Project Documentation
+
+- [SIEM Implementation](docs/siem-implementation.md)
+- [SOC Lab Network Topology](diagrams/soc-lab-network.md)
+- [Splunk Detection Queries](queries/splunk-detection-queries.md)
+- [Screenshots and Evidence](screenshots/)
+
+## Skills Demonstrated
+
+- Network configuration and troubleshooting
+- Firewall administration
+- Windows Server administration
+- Active Directory and DNS management
+- Linux server administration
+- SIEM deployment and configuration
+- Endpoint telemetry collection
+- Log analysis and investigation
+- SPL detection searches
+- Security monitoring and documentation
+
+## Planned Enhancements
+
+The following activities are future development goals, not yet completed:
+
+- Suricata network intrusion detection
+- MITRE ATT&CK technique mapping
+- Advanced threat hunting
+- Atomic Red Team attack simulations
+- Kali Linux security testing
+- Security alert tuning and incident response exercises
+
+## Project Status
+
+**Current stage:** Foundational SOC monitoring and centralized Windows event collection.
+
+This is an educational home lab built for hands-on cybersecurity training and professional portfolio development.
