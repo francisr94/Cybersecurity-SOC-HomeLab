@@ -12,7 +12,7 @@ The mapping identifies techniques that can be investigated using the Windows Sec
 
 | MITRE ATT&CK Technique | Technique ID | Relevant Telemetry | Investigation Goal | Status |
 |---|---|---|---|---|
-| Brute Force | T1110 | Windows Event ID 4625 | Investigate repeated failed authentication attempts | Search written; scheduled alert configured (DC01 - Repeated Failed Login Attempts) |
+| Brute Force | T1110 | Windows Event ID 4625 | Investigate repeated failed authentication attempts | Search written; scheduled alert configured and tested (DC01 - Repeated Failed Login Attempts) |
 | Valid Accounts | T1078 | Windows Event ID 4624 | Review successful logons and account activity | Search written |
 | Command and Scripting Interpreter: Windows Command Shell | T1059.003 | Sysmon Event ID 1 | Investigate suspicious command-shell execution | Validated with simulation ([report](atomic-red-team-test-01.md)) |
 | System Services: Service Execution | T1569.002 | Windows System Event ID 7045, Sysmon Event ID 1 | Investigate suspicious service installation and execution | Planned |
@@ -37,7 +37,7 @@ Investigation:
 
 A failed login alone does not establish a brute-force attack.
 
-A scheduled alert, "DC01 - Repeated Failed Login Attempts," flags 2 or more failed logins within 5 minutes. The threshold is set low for lab testing and would be higher in a production environment.
+A scheduled alert, "DC01 - Repeated Failed Login Attempts," flags 2 or more failed logins within 5 minutes. The threshold is set low for lab testing and would be higher in a production environment. Machine accounts (names ending in `$`) generate background failures and can inflate counts.
 
 ### 2. Successful Authentication Activity
 
@@ -97,7 +97,7 @@ Validated against Atomic Red Team test T1059.003 #1. See the [full report](atomi
 - Centralized log collection: Implemented and validated.
 - ATT&CK detection mapping: Initial mapping documented.
 - Adversary simulation: One controlled test completed (T1059.003).
-- Scheduled alerting: One alert configured (failed logins).
+- Scheduled alerting: One alert configured and tested (failed logins).
 - Advanced behavioral detection: Planned.
 
 ## Future Improvements
