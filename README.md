@@ -6,19 +6,16 @@ This project documents the design, deployment, and configuration of a virtualize
 
 The purpose of this lab is to develop practical cybersecurity skills in network security, Windows system administration, centralized log collection, security monitoring, and threat detection.
 
-**Outcome:** Windows Security and Sysmon logs from two domain-joined systems are collected in Splunk, where I investigate authentication activity and process creation using SPL.
+**Outcome:** Windows Security and Sysmon logs from two domain-joined systems are collected in Splunk, where I investigate authentication activity and process creation using SPL, validate a detection with a simulated attack, and alert on repeated failed logins.
 
 ## Key Findings
 
 | Investigation | Telemetry | Documented in |
 |---|---|---|
-| Failed authentication | Windows Event ID 4625 | [Splunk Detection Queries](queries/splunk-detection-queries.md) |
+| Command shell execution (T1059.003), validated with Atomic Red Team | Sysmon Event ID 1 | [Atomic Red Team Test 01](docs/atomic-red-team-test-01.md) |
+| Failed-login alerting (T1110) | Windows Event ID 4625 | [Failed Login Alert Test](docs/alert-failed-login-test.md) |
 | Successful authentication | Windows Event ID 4624 | [Splunk Detection Queries](queries/splunk-detection-queries.md) |
-| Process creation | Sysmon Event ID 1 | [Splunk Detection Queries](queries/splunk-detection-queries.md) |
 | End-to-end investigation | Windows Security and Sysmon logs | [SOC Incident Investigation Report](docs/incident-investigation-report.md) |
-| Failed-login alerting | Windows Event ID 4625 | [Failed Login Alert Test](docs/alert-failed-login-test.md) |
-
-Results from controlled Atomic Red Team simulations will be added here as they are completed.
 
 ## Lab Architecture
 
@@ -42,6 +39,7 @@ The environment runs in Oracle VirtualBox using an isolated internal network cal
 - Splunk Enterprise
 - Splunk Universal Forwarder
 - Microsoft Sysmon
+- Atomic Red Team
 - Splunk Search Processing Language (SPL)
 
 ## Implemented Components
@@ -76,15 +74,21 @@ The environment runs in Oracle VirtualBox using an isolated internal network cal
 - Investigated Sysmon process creation activity.
 - Used SPL searches to summarize security events.
 
+### 6. Detection Validation and Alerting
+- Ran a controlled Atomic Red Team test (T1059.003) on CLIENT01 and confirmed the resulting Sysmon events in Splunk.
+- Configured a scheduled Splunk alert for repeated failed logins on DC01 and confirmed that it fires.
+- Found and corrected a clock offset on DC01 that was delaying alert detection.
+
 ## Detection Engineering
 
-Documented SPL searches include:
+Documented SPL searches and alerts include:
 
 - Failed login monitoring.
 - Successful login activity.
 - Sysmon process creation.
 - Windows security event overview.
-- Threshold-based failed login detection.
+- Threshold-based failed login detection, including a scheduled alert.
+- Command shell execution (validated with Atomic Red Team).
 
 See [Splunk Detection Queries](queries/splunk-detection-queries.md).
 
@@ -94,6 +98,8 @@ See [Splunk Detection Queries](queries/splunk-detection-queries.md).
 - [SOC Lab Network Topology](diagrams/soc-lab-network.md)
 - [Splunk Detection Queries](queries/splunk-detection-queries.md)
 - [MITRE ATT&CK Mapping](docs/mitre-attack-mapping.md)
+- [Atomic Red Team Test 01](docs/atomic-red-team-test-01.md)
+- [Failed Login Alert Test](docs/alert-failed-login-test.md)
 - [SOC Analyst Technical Skills](docs/soc-analyst-skills.md)
 - [SOC Incident Investigation Report](docs/incident-investigation-report.md)
 - [Screenshots and Lab Evidence](screenshots/)
@@ -109,20 +115,23 @@ See [Splunk Detection Queries](queries/splunk-detection-queries.md).
 - Endpoint telemetry collection
 - Log analysis and investigation
 - SPL detection searches
+- Detection validation with Atomic Red Team
+- Scheduled alerting
 - Security monitoring and documentation
 
 ## Planned Enhancements
 
 The following activities are future development goals, not yet completed:
 
-- Atomic Red Team simulations to validate ATT&CK mappings
+- Additional Atomic Red Team simulations (for example, PowerShell, T1059.001)
+- Failed-login alert for CLIENT01 and alert tuning
 - Suricata network intrusion detection
 - Advanced threat hunting
 - Kali Linux security testing
-- Security alert tuning and incident response exercises
+- Incident response exercises
 
 ## Project Status
 
-**Current stage:** Foundational SOC monitoring and centralized Windows event collection.
+**Current stage:** SOC monitoring with centralized Windows event collection, one validated detection, and one tested alert.
 
 This is an educational home lab built for hands-on cybersecurity training and professional portfolio development.
