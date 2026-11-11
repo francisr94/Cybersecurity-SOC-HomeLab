@@ -31,6 +31,8 @@ Invoke-AtomicTest T1059.003 -TestNumbers 1 -PathToAtomicsFolder C:\AtomicRedTeam
 
 The test creates a batch file containing the command `dir` and launches it through PowerShell's `Start-Process`, causing `cmd.exe` to run the script. It finished with exit code 0, and the cleanup step removed the batch file afterward.
 
+![Atomic test running on CLIENT01](../screenshots/05-atomic-red-team/atomic-t1059-003-run.png)
+
 ![Splunk results for the test](../screenshots/05-atomic-red-team/atomic-t1059-003-splunk.png)
 
 ![Expanded Sysmon event](../screenshots/05-atomic-red-team/atomic-t1059-003-event.png)
