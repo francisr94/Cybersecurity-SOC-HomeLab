@@ -50,9 +50,11 @@ The test creates a batch file containing the command `dir` and launches it throu
 
 Sysmon recorded `powershell.exe` launching `cmd.exe` with `/c` and the path to a batch file. This process chain is consistent with the Windows Command Shell technique (T1059.003), and the parent-child relationship and full command line are what an analyst would use to investigate it.
 
-(screenshots/05-atomic-red-team/atomic-t1059-003-splunk.png)
+![Atomic test running on CLIENT01](../screenshots/05-atomic-red-team/atomic-t1059-003-run.png)
 
-(screenshots/05-atomic-red-team/atomic-t1059-003-event.png)
+![Splunk results for the test](../screenshots/05-atomic-red-team/atomic-t1059-003-splunk.png)
+
+![Expanded Sysmon event](../screenshots/05-atomic-red-team/atomic-t1059-003-event.png)
 
 ## Detection Query
 
