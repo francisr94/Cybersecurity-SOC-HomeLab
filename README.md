@@ -16,6 +16,7 @@ The purpose of this lab is to develop practical cybersecurity skills in network 
 | Successful authentication | Windows Event ID 4624 | [Splunk Detection Queries](queries/splunk-detection-queries.md) |
 | Process creation | Sysmon Event ID 1 | [Splunk Detection Queries](queries/splunk-detection-queries.md) |
 | End-to-end investigation | Windows Security and Sysmon logs | [SOC Incident Investigation Report](docs/incident-investigation-report.md) |
+| Failed-login alerting | Windows Event ID 4625 | [Failed Login Alert Test](docs/alert-failed-login-test.md) |
 
 Results from controlled Atomic Red Team simulations will be added here as they are completed.
 
