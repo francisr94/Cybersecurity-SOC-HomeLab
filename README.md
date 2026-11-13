@@ -174,6 +174,12 @@ A Python-based tool for analyzing repeated failed authentication attempts.
 - Applies configurable detection thresholds.
 - Supports authentication log investigation.
 
+## 🔗 Related Portfolio Projects
+
+- [Network Traffic Monitoring](https://github.com/francisr94/Network-Traffic-Monitoring) — Python and TShark-based network traffic analysis.
+- [Phishing Email Analysis](https://github.com/francisr94/Phishing-Email-Analysis) — Email investigation and indicator analysis.
+- [Failed Login Analyzer](https://github.com/francisr94/Failed-Login-Analyzer) — Python-based analysis of repeated failed login attempts.
+
 ## Project Status
 
 **Current Stage:** Operational SOC monitoring lab with centralized Windows event collection, validated command-shell detection, and tested scheduled failed-login alerting.
