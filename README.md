@@ -130,6 +130,20 @@ The following activities are future development goals, not yet completed:
 - Kali Linux security testing
 - Incident response exercises
 
+## 🔗 Related Portfolio Projects
+
+### Python Network Traffic Monitoring and Alerting
+
+[View Network Traffic Monitoring on GitHub](https://github.com/francisr94/Network-Traffic-Monitoring)
+
+A Python-based network monitoring prototype developed in Kali Linux using TShark. Captures ICMP traffic, analyzes packet activity by source IP, and generates structured JSON alerts using threshold-based detection.
+
+### Phishing Email Analysis
+
+[View Phishing Email Analysis on GitHub](https://github.com/francisr94/Phishing-Email-Analysis)
+
+A hands-on email security investigation project focused on analyzing suspicious email activity and identifying potential phishing indicators.
+
 ## Project Status
 
 **Current stage:** SOC monitoring with centralized Windows event collection, one validated detection, and one tested alert.
